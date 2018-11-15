@@ -62,7 +62,7 @@ app.use(errorHandler);
 
 // Serve GeoJSON data
 
-var data = JSON.parse(fs.readFileSync('data/data6.geojson', 'utf8'));
+var data = JSON.parse(fs.readFileSync('data/data7.geojson', 'utf8'));
 // var data = JSON.parse(fs.readFileSync('data/sngp.json', 'utf8'));
 
 app.get('/features',(req,res)=>{
