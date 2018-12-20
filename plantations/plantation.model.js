@@ -9,6 +9,7 @@ const schema = new Schema({
     site_id: { type: String, required: true },
     plantation_code: { type: String, required: true },
     site: { type: String, required: true },
+    created_by: { type: String, required: true },
     module: { type: String, default: "" },
     nature: { type: String, default: "" },
     vegetation_type: { type: String, default: "" },

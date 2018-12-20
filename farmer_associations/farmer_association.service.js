@@ -26,7 +26,7 @@ module.exports = {
 // }
 
 async function getAll() {
-    return await FarmerAssociation.find().select('-hash');
+    return await FarmerAssociation.find().sort( { code: 1 } ).select('-hash');
 }
 
 async function getById(id) {

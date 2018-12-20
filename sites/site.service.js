@@ -26,7 +26,7 @@ module.exports = {
 // }
 
 async function getAll() {
-    return await Site.find().select('-hash');
+    return await Site.find().sort( { code: 1 } ).select('-hash');
 }
 
 async function getById(id) {

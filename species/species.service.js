@@ -26,7 +26,7 @@ module.exports = {
 // }
 
 async function getAll() {
-    return await Species.find().select('-hash');
+    return await Species.find().sort( { name: 1 } ).select('-hash');
 }
 
 async function getById(id) {

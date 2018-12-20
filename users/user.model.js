@@ -7,6 +7,7 @@ const schema = new Schema({
     fullname: { type: String, required: true },
     role: { type: String, required: true },
     site: { type: String, required: true },
+    email: { type: String, required: true },
 });
 
 schema.set('toJSON', { virtuals: true });
