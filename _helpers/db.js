@@ -9,5 +9,6 @@ module.exports = {
     Species: require('../species/species.model'),
     FarmerAssociation: require('../farmer_associations/farmer_association.model'),
     Plantation: require('../plantations/plantation.model'),
-    MaintenanceEntry: require('../maintenance_entries/maintenance_entry.model')
+    MaintenanceEntry: require('../maintenance_entries/maintenance_entry.model'),
+    Notifications: require('../notifications/notifications.model')
 };

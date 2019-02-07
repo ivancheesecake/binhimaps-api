@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
 const Plantation = db.Plantation;
+const Notifications = db.Notifications;
+const User = db.User;
 
 module.exports = {
 
@@ -28,7 +30,7 @@ module.exports = {
 // }
 
 async function getAll(siteId) {
-    console.log(siteId)
+    // console.log(siteId)
     if(siteId!="Administrator")
         return await Plantation.find({status: {$ne : "Pending"}, site_id: siteId }).sort({siteyear:1}).select('-hash');
     else{
@@ -46,7 +48,7 @@ async function getAllTalaga() {
 
 
 async function getAllPending(siteId) {
-    console.log(siteId)
+    // console.log(siteId)
     if(siteId!="Administrator"){
         return await Plantation.find({status:"Pending", site_id: siteId }).select('-hash');
     }
@@ -65,15 +67,61 @@ async function getById(id) {
 // }
 
 
+function getSupervisors(site_id){
+
+    var query = User.find({site:site_id, role:"Supervisor"});
+    return query;
+}
+
 
 async function create(userParam) {
+
+
     // validate
     // if (await Plantation.findOne({ username: userParam.username })) {
     //     throw 'Plantationname "' + userParam.username + '" is already taken';
     // }
 
     const plantation = new Plantation(userParam);
+
+    // console.log(userParam)
+    console.log("START")
     
+    // Create notifications
+
+    // Get the supervisors for notifications!!!!
+    query = getSupervisors(userParam.site_id);
+    query.exec(function(err,docs){
+
+        if(err)
+            return console.log(err)
+
+        docs.forEach(function(docs){
+            console.log(docs)
+            // QUINGINA ANG HABANG PROSESO HAHAHAHA
+            // Pero dito ka gagawa ng notifications
+     
+            notificationData = userParam.notificationData;
+            notificationData.plantation_id = plantation._id;
+            notificationData.to = docs._id;
+            notificationData.to_username = docs.username;
+
+            const notification = new Notifications(notificationData);
+            notification.save();
+
+        })
+
+
+    });
+
+    // console.log(plantation._id);
+    // console.log(userParam.notificationData);
+    console.log("END")
+
+    
+    
+
+
     // hash password
     // if (userParam.password) {
     //     user.hash = bcrypt.hashSync(userParam.password, 10);
@@ -88,6 +136,32 @@ async function update(id, userParam) {
 
     // validate
     if (!plantation) throw 'Plantation not found';
+
+    // Create Notifications
+
+    query = getSupervisors(userParam.site_id);
+    query.exec(function(err,docs){
+
+        if(err)
+            return console.log(err)
+
+        docs.forEach(function(docs){
+            console.log(docs)
+            // QUINGINA ANG HABANG PROSESO HAHAHAHA
+            // Pero dito ka gagawa ng notifications
+     
+            notificationData = userParam.notificationData;
+            notificationData.plantation_id = plantation._id;
+            notificationData.to = docs._id;
+            notificationData.to_username = docs.username;
+            const notification = new Notifications(notificationData);
+            notification.save();
+
+        })
+
+
+    });
+
 
     // copy userParam properties to user
     Object.assign(plantation, userParam);

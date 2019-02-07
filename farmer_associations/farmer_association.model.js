@@ -7,6 +7,10 @@ const schema = new Schema({
     location: { type: String, required: true },
 });
 
+
+var timestamps = require('mongoose-timestamp');
+schema.plugin(timestamps)
+
 schema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('farmer_associations', schema);

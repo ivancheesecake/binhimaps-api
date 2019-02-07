@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+var timestamps = require('mongoose-timestamp');
+
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
@@ -10,6 +12,7 @@ const schema = new Schema({
     plantation_code: { type: String, required: true },
     site: { type: String, required: true },
     created_by: { type: String, required: true },
+    created_by_id: { type: String, required: true },
     module: { type: String, default: "" },
     nature: { type: String, default: "" },
     vegetation_type: { type: String, default: "" },
@@ -33,10 +36,13 @@ const schema = new Schema({
     regenerants_protected: { type: Number, default: "" },
     survival_rate: { type: Number, default: "" },
     total_seedlings: { type: Number, default: "" },
+    history: { type: String, default: "" },
     status: { type: String, default: "" },
 
 
 });
+
+schema.plugin(timestamps)
 
 schema.set('toJSON', { virtuals: true });
 

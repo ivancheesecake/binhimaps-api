@@ -33,6 +33,9 @@ const schema = new Schema({
 
 });
 
+var timestamps = require('mongoose-timestamp');
+schema.plugin(timestamps)
+
 schema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('MaintenanceEntry', schema);

@@ -49,9 +49,13 @@ function getAllPending(req, res, next) {
 }
 
 function getById(req, res, next) {
+    // plantationService.getById(req.params.id)
+    //     .then(user => plantation ? res.json(plantation) : res.sendStatus(404))
+    //     .catch(err => next(err));
+
     plantationService.getById(req.params.id)
-        .then(user => plantation ? res.json(plantation) : res.sendStatus(404))
-        .catch(err => next(err));
+    .then(plantations => res.json([plantations]))
+    .catch(err => next(err));
 }
 
 function getByPlantation(req, res, next) {

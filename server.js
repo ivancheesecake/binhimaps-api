@@ -54,6 +54,8 @@ app.use('/species', require('./species/species.controller'));
 app.use('/farmers_associations', require('./farmer_associations/farmer_associations.controller'));
 app.use('/plantations', require('./plantations/plantations.controller'));
 app.use('/maintenance_entries', require('./maintenance_entries/maintenance_entries.controller'));
+app.use('/notifications', require('./notifications/notifications.controller'));
+
 
 // global error handler
 app.use(errorHandler);
@@ -298,7 +300,9 @@ app.post('/uploadexcel', upload.single('file'), (req, res,next) => {
         var desired_cell = worksheet["G25"];
         plantation.total_seedlings = (desired_cell ? desired_cell.v : undefined);
 
-    
+        var desired_cell = worksheet["C26"];
+        plantation.history = (desired_cell ? desired_cell.v : undefined);
+
 
         console.log(plantation);
 
