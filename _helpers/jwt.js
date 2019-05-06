@@ -15,7 +15,8 @@ function jwt() {
             '/uploadexcel',
             '/uploadexcelMaintenance',
             '/parseExcel',
-            '/features'
+            '/features',
+            '/generatereport'
         ]
     });
 }
