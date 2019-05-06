@@ -9,8 +9,8 @@ const multer = require('multer');
 const morgan = require('morgan');
 const XLSX = require('xlsx');
 const fs = require("fs");
-const puppeteer = require('puppeteer');
-const fse = require("fs-extra");
+// const puppeteer = require('puppeteer');
+// const fse = require("fs-extra");
 
 
 // For deployment
@@ -67,7 +67,7 @@ app.use(errorHandler);
 
 // Serve GeoJSON data
 
-var data = JSON.parse(fs.readFileSync('data/data10.geojson', 'utf8'));
+var data = JSON.parse(fs.readFileSync('data/data11.geojson', 'utf8'));
 // var data = JSON.parse(fs.readFileSync('data/sngp.json', 'utf8'));
 
 app.get('/features',(req,res)=>{
@@ -78,71 +78,83 @@ app.get('/features',(req,res)=>{
 })
 
 
-const generatepdf = async()=>{
+// const generatepdf = async()=>{
 
-    console.log("HEY");
-
-
-    const browser = await puppeteer.launch();
-
-    const page = await browser.newPage();
-    await page.goto('https://google.com');
-
-    const pdf = await page.pdf();
-    return pdf;
-
-}
+//     console.log("HEY");
 
 
-app.get('/generatereport', async function (req, res)  {
-    console.log("HELLO!");
+//     const browser = await puppeteer.launch();
 
-    // (async function(){
+//     const page = await browser.newPage();
+//     // await page.goto('https://google.com');
 
-    //     try{
-
-    //         const browser = await puppeteer.launch();
-    //         const page = await browser.newPage();
-
-    //         await page.setContent('<h1>hello</h1>');
-    //         await page.emulateMedia('screen')
-    //         await page.pdf({
-    //             path: 'mypdf.pdf',
-    //             format: 'A4',
-    //             printBackground: true
-    //         });
-
-    //         console.log('done');
-    //         res.status(200).send(JSON.stringify({success: true}));
-
-    //         process.exit();
-
-
-    //     }catch(e){
-    //         console.log('error',e);
-    //     }
-
-    // })
-
-
-    // (async () => {
-    //     const browser = await puppeteer.launch()
-    //     const page = await browser.newPage()
-    //     await page.goto('http://google.com')
-    //     const buffer = await page.pdf({format: 'A4'})
-    //     res.type('application/pdf')
-    //     res.send(buffer)
-    //     browser.close()
-    // })()
-
-
-    const pdf = await generatepdf();
-    res.contentType("application/pdf");
-    res.send(pdf);
+//     await page.setContent('<h1>hello</h1>');
+//     await page.emulateMedia('screen')
+//     await page.pdf({
+//         path: 'mypdf.pdf',
+//         format: 'A4',
+//         printBackground: true
+//     });
 
 
 
-})
+
+
+//     const pdf = await page.pdf();
+//     return pdf;
+
+// }
+
+
+// app.get('/generatereport', async function (req, res)  {
+//     console.log("HELLO!");
+
+//     // (async function(){
+
+//     //     try{
+
+//     //         const browser = await puppeteer.launch();
+//     //         const page = await browser.newPage();
+
+//     //         await page.setContent('<h1>hello</h1>');
+//     //         await page.emulateMedia('screen')
+//     //         await page.pdf({
+//     //             path: 'mypdf.pdf',
+//     //             format: 'A4',
+//     //             printBackground: true
+//     //         });
+
+//     //         console.log('done');
+//     //         res.status(200).send(JSON.stringify({success: true}));
+
+//     //         process.exit();
+
+
+//     //     }catch(e){
+//     //         console.log('error',e);
+//     //     }
+
+//     // })
+
+
+//     // (async () => {
+//     //     const browser = await puppeteer.launch()
+//     //     const page = await browser.newPage()
+//     //     await page.goto('http://google.com')
+//     //     const buffer = await page.pdf({format: 'A4'})
+//     //     res.type('application/pdf')
+//     //     res.send(buffer)
+//     //     browser.close()
+//     // })()
+
+
+//     const pdf = await generatepdf();
+//     res.contentType("application/pdf");
+//     res.send(pdf);
+
+
+
+// })
 
 
 
